@@ -1,0 +1,8 @@
+PRGNAM="evince"
+VERSION="2.26.2"
+HOMEPAGE="http://projects.gnome.org/evince/"
+DOWNLOAD="http://ftp.gnome.org/pub/GNOME/sources/evince/2.26/evince-2.26.2.tar.bz2"
+MD5SUM=""
+MAINTAINER="Andrew Brouwers"
+EMAIL="abrouwers@gmail.com"
+APPROVED=""

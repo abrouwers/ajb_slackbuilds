@@ -1,0 +1,12 @@
+PRGNAM="teeworlds"
+VERSION="0.5.1"
+HOMEPAGE="http://www.teeworlds.com"
+DOWNLOAD="http://www.teeworlds.com/files/teeworlds-0.5.1-src.tar.gz \
+	http://www.teeworlds.com/files/bam-0.2.0.tar.gz"
+DOWNLOAD_x86_64=""
+MD5SUM="5f96e73ff4c3d552de55902da9255606 \
+	d4efe74591a73c1cec8b34d76ffd1049"
+MD5SUM_x86_64=""
+MAINTAINER=""
+EMAIL=""
+APPROVED=""

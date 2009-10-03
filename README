@@ -1,0 +1,9 @@
+This repository houses my personal slackbuilds.  Some are available on
+slackbuilds.org, others not.  For those that are, it probably means
+that they are here because of some tweak that I prefer, and SBo does not.
+Others might not follow SBo guideliness completely (eg, pulls SVN code).
+
+Anyway, enjoy, and feel free to send comments / recommendations / patches / 
+pieces of broken computer to which these scripts may have caused.
+
+Andrew Brouwers, abrouwers at gmail dot com.

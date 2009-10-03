@@ -1,0 +1,14 @@
+Handbrake (gtk interface)
+
+This slackbuild is a little un-traditional, because it will also checkout (and update)
+the latest svn from trunk.
+
+The following are required to build the GTK+ version of handbrake.
+
+- Webkit
+   - icu4c
+   - libsoup
+- libnotify
+- yasm (build-time dep (x264); not needed to run)
+
+Finally, to encode encrypted DVD's, libdvdcss is required.

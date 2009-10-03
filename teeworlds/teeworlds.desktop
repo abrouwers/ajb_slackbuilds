@@ -1,0 +1,12 @@
+[Desktop Entry]
+Comment=2D platformgame
+Exec=/usr/bin/teeworlds
+GenericName=TeeWorlds
+Icon=/usr/share/pixmaps/teeworlds.png
+Name=teeworlds
+StartupNotify=false
+Terminal=false
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+Categories=Game;

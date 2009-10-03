@@ -1,0 +1,8 @@
+PRGNAM="gnome-mplayer"
+VERSION="0.9.8"
+HOMEPAGE="http://kdekorte.googlepages.com/"
+DOWNLOAD="http://gnome-mplayer.googlecode.com/files/gnome-mplayer-0.9.8.tar.gz"
+MD5SUM=""
+MAINTAINER="Andrew Brouwers"
+EMAIL="abrouwers{at}gmail{dot}com"
+APPROVED=""

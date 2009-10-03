@@ -1,0 +1,87 @@
+#!/bin/sh
+#
+# Slackware build script for Teeworlds
+#
+# Copyright 2009  Andrew Brouwers
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+PRGNAM=teeworlds
+VERSION=0.5.1
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-2}
+TAG=${TAG:-_ajb}
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+  LIBDIRSUFFIX="64"
+fi
+
+set -eu
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf {$PRGNAM-$VERSION-src,bam-0.2*}
+
+# Why, oh why ?
+tar xvf $CWD/bam-0.2.0.tar.gz
+cd bam-0.2.0
+./make_unix.sh $SLKCFLAGS
+
+# Build teeworlds
+cd $TMP
+tar xvf $CWD/$PRGNAM-$VERSION-src.tar.gz
+cd $PRGNAM-$VERSION-src
+chown -R root:root . 
+chmod -R u+w,go+r-w,a-s .
+
+# Patch from upstream
+patch -p1 -i $CWD/fix_datadir_search.patch
+
+# Fix warnings and build
+sed -i "/settings\.cc\.flags:Add(\"-Wall\", \"-fno-exceptions\")/s|)|, \"$SLKCFLAGS\" )|" default.bam
+$TMP/bam-0.2.0/src/bam server_release client_release
+
+# Create structure and install
+mkdir -p $PKG/usr/{bin,share/teeworlds}
+install -m 0755 teeworlds teeworlds_srv $PKG/usr/bin
+cp -r data $PKG/usr/share/teeworlds
+
+# Install some desktop items
+install -D -m 0644 $CWD/teeworlds.png $PKG/usr/share/pixmaps/teeworlds.png
+install -D -m 0644 $CWD/teeworlds.desktop $PKG/usr/share/applications/teeworlds.desktop
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
