@@ -1,3 +1,13 @@
 HuluDesktop is the official linux client from hulu labs.
 
 In order to use this program, flash must be installed on the system.
+
+When you initially run the huludesktop client, if you have used the flash
+slackbuild from slackbuilds.org, it probably won't locate the flash library.
+To fix, edit your ~/.huludesktop:
+
+64-bit:
+flash_location = /usr/lib64/mozilla/plugins/libflashplayer.so
+
+32-bit:
+flash_location = /usr/lib/mozilla/plugins/libflashplayer.so
