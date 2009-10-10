@@ -27,7 +27,7 @@
 # Updated by Andrew Brouwers, abrouwers AT gmail DOT com
 
 PRGNAM=gnome-colors
-VERSION=${VERSION:-5.3}
+VERSION=${VERSION:-5.5}
 # Hardcode the ARCH as this truly is architecture-independent
 ARCH=noarch
 BUILD=${BUILD:-1}
