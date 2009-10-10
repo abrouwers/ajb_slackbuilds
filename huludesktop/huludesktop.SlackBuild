@@ -28,7 +28,6 @@ ARCH=${ARCH:-i386}	# Binary: i386 (32-bit) or x86_64 (64-bit)
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
-
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
