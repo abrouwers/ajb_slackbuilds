@@ -1,0 +1,5 @@
+xfce4-power-manager
+
+This is an updated version of xfce4-power-manager.  Please note, this requires
+libnotify to build and run.  libnotify is available at slackbuilds.org (and
+probably slackware 13.1).
