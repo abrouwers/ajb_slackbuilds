@@ -11,4 +11,9 @@ The following are required to build the GTK+ version of handbrake.
 - libnotify
 - yasm (build-time dep (x264); not needed to run)
 
+alienbob has packages at his site for the deps - highly recommended, since
+compiling website sucks:
+
+    http://connie.slackware.com/~alien/slackbuilds/
+
 Finally, to encode encrypted DVD's, libdvdcss is required.
