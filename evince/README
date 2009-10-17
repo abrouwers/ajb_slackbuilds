@@ -1,8 +1,0 @@
-Evince is a document viewer for multiple document formats. It currently 
-supports pdf, postscript, djvu, tiff and dvi. The goal of evince is to 
-replace the multiple document viewers that exist on the GNOME Desktop with 
-a single simple application.
-
-Evince 2.26.x requires gnome-doc-utils as a build time dependency, but not
-at runtime.  Further, the "dvi" support is only available if texlive is
-installed (disabled by default).
