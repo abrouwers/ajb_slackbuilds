@@ -6,4 +6,5 @@ OS X, Windows, FreeBSD, and embedded Linux using Qt Embedded and
 anywhere Qt does. For more information about the project check out the
 Arora Goals wiki page.
 
-This requires qt4.
+Due to a bug in qt 4.5.1 (which ships with slackware 13), using
+the qt from -current is advised (fixes cookie bugs in webkit).

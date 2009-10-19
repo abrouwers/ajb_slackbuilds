@@ -22,8 +22,10 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Updated by Andrew Brouwers
+
 PRGNAM=arora
-VERSION=${VERSION:-0.7.1}
+VERSION=${VERSION:-0.10.1}
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
@@ -59,10 +61,8 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-qmake-qt4 arora.pro PREFIX=/usr
+qmake PREFIX=/usr QMAKE_CXXFLAGS="$SLKCFLAGS"
 
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
 make
 make INSTALL_ROOT=$PKG install
 
