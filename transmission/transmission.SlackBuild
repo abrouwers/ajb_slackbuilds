@@ -3,7 +3,7 @@
 # Written by Iskar Enev <iskar.enev[@]gmail.com>
 
 PRGNAM=transmission
-VERSION=1.74
+VERSION=1.75
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
@@ -54,6 +54,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --mandir=/usr/man \
   --disable-static \
+  --disable-gtk \
+  --disable-wx \
   --verbose \
   --build=$ARCH-slackware-linux \
   --host=$ARCH-slackware-linux
@@ -80,6 +82,11 @@ make install DESTDIR=$PKG
   find . -type f -exec gzip -9 {} \;
   for i in $(find . -type l) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 )
+
+
+# Add QT icon + desktop entry
+install -D -m 644 $CWD/qtransmission.desktop $PKG/usr/share/applications/qtransmission.desktop
+install -D -m 644 qt/icons/transmission.png $PKG/usr/share/pixmaps/qtransmission.png
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $DOCUMENTATION $PKG/usr/doc/$PRGNAM-$VERSION
