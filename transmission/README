@@ -1,0 +1,5 @@
+Transmission is a lightweight open source BitTorrent client,
+providing useful functionality without feature bloat. It consists
+of a daemon, a GTK+ and a CLI client.
+
+NOTE: this installs the QT4 binary!
