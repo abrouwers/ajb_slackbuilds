@@ -44,7 +44,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG
 cd $TMP
 rm -rf ${PKGNAM}-${VERSION}
-tar xvf $CWD/${PKGNAM}-$VERSION.tar.xz || exit 1
+tar xvf $CWD/${PKGNAM}-$VERSION.tar.bz2 || exit 1
 cd ${PKGNAM}-$VERSION
 
 # Make sure ownerships and permissions are sane:
