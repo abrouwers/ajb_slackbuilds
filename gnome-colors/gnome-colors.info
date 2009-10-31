@@ -1,8 +1,0 @@
-PRGNAM="gnome-colors"
-VERSION="5.5"
-HOMEPAGE="http://code.google.com/p/gnome-colors/"
-DOWNLOAD="http://gnome-colors.googlecode.com/files/gnome-colors-5.5.tar.gz"
-MD5SUM="905bed4d6d9c1f6bb897586d36b9f118"
-MAINTAINER="Andrew Brouwers"
-EMAIL="abrouwers@gmail.com"
-APPROVED=""
