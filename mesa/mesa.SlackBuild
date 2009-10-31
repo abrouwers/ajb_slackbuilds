@@ -21,7 +21,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PKGNAM=mesa
-VERSION=${VERSION:-7.6}
+# VERSION=${VERSION:-7.6}
+VERSION=${VERSION:-20091031_git}
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
 
@@ -47,11 +48,21 @@ fi
 rm -rf $PKG
 mkdir -p $TMP $PKG
 cd $TMP
-rm -rf Mesa-${VERSION}
-tar xvf $CWD/MesaLib-$VERSION.tar.bz2 || exit 1
-tar xvf $CWD/MesaGLUT-$VERSION.tar.bz2 || exit 1
-tar xvf $CWD/MesaDemos-$VERSION.tar.bz2 || exit 1
-cd Mesa-$VERSION
+
+# For the git version:
+rm -rf mesa-${VERSION}
+tar xvf $CWD/mesa-${VERSION}.tar.bz2 || exit 1
+cd mesa-${VERSION}
+
+# Create the configure script
+sh autogen.sh
+
+# For the release version:
+# rm -rf Mesa-${VERSION}
+# tar xvf $CWD/MesaLib-$VERSION.tar.bz2 || exit 1
+# tar xvf $CWD/MesaGLUT-$VERSION.tar.bz2 || exit 1
+# tar xvf $CWD/MesaDemos-$VERSION.tar.bz2 || exit 1
+# cd Mesa-$VERSION
 
 # Make sure ownerships and permissions are sane:
 chown -R root:root .
