@@ -1,0 +1,9 @@
+This slackbuild will produce a package for grub2.  It is "still experimental"
+and "under heavy development," but seems to work well on many hardware setups
+(ubuntu ships it already by default, as will fedora for F13).  Can it really
+be worse than grub 1 ?
+
+For configuration, a few distributions have some pretty good wiki's on how to 
+get grub2 working.  Arch linux has a pretty good write-up on their wiki:
+
+http://wiki.archlinux.org/index.php/GRUB2
