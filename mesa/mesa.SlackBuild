@@ -22,17 +22,19 @@
 
 PKGNAM=mesa
 # VERSION=${VERSION:-7.6}
-VERSION=${VERSION:-20091031_git}
+VERSION=$(date +"%Y%m%d")
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
+TAG=${TAG=_ajb}
 
 # Be sure this list is up-to-date:
 # DRI_DRIVERS="i810,i915,i965,mach64,mga,r128,r200,r300,radeon,s3v,savage,sis,tdfx,trident,unichrome,ffb,swrast"
 DRI_DRIVERS="i965,swrast"
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp}
-PKG=$TMP/package-mesa
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-${PKGNAM}
+OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -49,10 +51,21 @@ rm -rf $PKG
 mkdir -p $TMP $PKG
 cd $TMP
 
-# For the git version:
-rm -rf mesa-${VERSION}
-tar xvf $CWD/mesa-${VERSION}.tar.bz2 || exit 1
-cd mesa-${VERSION}
+# For live build:
+GIT_URL=git://anongit.freedesktop.org/git/mesa/mesa
+
+if [ -d ${PKGNAM}/.git ]; then
+  ( cd ${PKGNAM} && git pull )  # Should be on the 7.6 branch
+else
+  git clone -b mesa_7_6_branch $GIT_URL $PKGNAM
+fi
+
+# Confirm checkout
+echo " "
+echo "Checkout complete (or failed miserably) - starting build..."
+sleep 3
+
+cd $TMP/$PKGNAM
 
 # Create the configure script
 sh autogen.sh
@@ -137,5 +150,4 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/${PKGNAM}-$VERSION-$ARCH-$BUILD.txz
-
+/sbin/makepkg -l y -c n ${OUTPUT}/${PKGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.txz
