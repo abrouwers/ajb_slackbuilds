@@ -21,13 +21,16 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PKGNAM=libdrm
-VERSION=${VERSION:-2.4.15}
+# VERSION=2.4.15
+VERSION=$(date +"%Y%m%d")
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
+TAG=${TAG=_ajb}
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-${PKGNAM}
+OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -43,17 +46,30 @@ fi
 rm -rf $PKG
 mkdir -p $TMP $PKG
 cd $TMP
-rm -rf ${PKGNAM}-${VERSION}
-tar xvf $CWD/${PKGNAM}-$VERSION.tar.bz2 || exit 1
-cd ${PKGNAM}-$VERSION
 
-# Make sure ownerships and permissions are sane:
-chown -R root:root .
-find . \
-  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
-  -exec chmod 755 {} \; -o \
-  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
-  -exec chmod 644 {} \;
+# For tarball versions:
+# rm -rf ${PKGNAM}-${VERSION}
+# tar xvf $CWD/${PKGNAM}-$VERSION.tar.bz2 || exit 1
+# cd ${PKGNAM}-$VERSION
+
+# For live build:
+GIT_URL=git://anongit.freedesktop.org/git/mesa/drm
+
+if [ -d ${PKGNAM}/.git ]; then
+  ( cd ${PKGNAM} && git pull origin )
+else
+  git clone $GIT_URL $PKGNAM
+fi
+
+# Confirm checkout
+echo " "
+echo "Checkout complete (or failed miserably) - starting build..."
+sleep 3
+
+cd $TMP/$PKGNAM
+
+# Generate configure
+./autogen.sh
 
 # Configure:
 CFLAGS="$SLKCFLAGS" \
@@ -103,6 +119,5 @@ cp -a \
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
-cd $TMP/package-${PKGNAM}
-/sbin/makepkg -l y -c n $TMP/${PKGNAM}-$VERSION-$ARCH-$BUILD.txz
-
+cd $PKG
+/sbin/makepkg -l y -c n ${OUTPUT}/${PKGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.txz
