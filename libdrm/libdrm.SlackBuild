@@ -21,8 +21,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PKGNAM=libdrm
-# VERSION=2.4.15
-VERSION=$(date +"%Y%m%d")
+VERSION=2.4.15
+# VERSION=$(date +"%Y%m%d")
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
 TAG=${TAG=_ajb}
@@ -48,28 +48,28 @@ mkdir -p $TMP $PKG
 cd $TMP
 
 # For tarball versions:
-# rm -rf ${PKGNAM}-${VERSION}
-# tar xvf $CWD/${PKGNAM}-$VERSION.tar.bz2 || exit 1
-# cd ${PKGNAM}-$VERSION
+rm -rf ${PKGNAM}-${VERSION}
+tar xvf $CWD/${PKGNAM}-$VERSION.tar.bz2 || exit 1
+cd ${PKGNAM}-$VERSION
 
 # For live build:
-GIT_URL=git://anongit.freedesktop.org/git/mesa/drm
+# GIT_URL=git://anongit.freedesktop.org/git/mesa/drm
 
-if [ -d ${PKGNAM}/.git ]; then
-  ( cd ${PKGNAM} && git pull origin )
-else
-  git clone $GIT_URL $PKGNAM
-fi
+# if [ -d ${PKGNAM}/.git ]; then
+#   ( cd ${PKGNAM} && git pull origin )
+# else
+#   git clone $GIT_URL $PKGNAM
+# fi
 
 # Confirm checkout
-echo " "
-echo "Checkout complete (or failed miserably) - starting build..."
-sleep 3
+# echo " "
+# echo "Checkout complete (or failed miserably) - starting build..."
+# sleep 3
 
-cd $TMP/$PKGNAM
+# cd $TMP/$PKGNAM
 
 # Generate configure
-./autogen.sh
+# ./autogen.sh
 
 # Configure:
 CFLAGS="$SLKCFLAGS" \
