@@ -1,12 +1,12 @@
 This slackbuild will produce a package for grub2.  It is "still experimental"
-and "under heavy development," but seems to work well on many hardware setups
-(ubuntu ships it already by default, as will fedora for F13).  Can it really
-be worse than grub 1 ?
+and "under heavy development," but seems to work well on many hardware setups;
+some distros, such as ubuntu, already ship it as their default bootloader.
 
 grub2 has many configuration options, which I won't detail here, but be sure
-to check around on-line for grub2's full potential.  If you do not understand
-how to boot a liveCD to re-install lilo, you might want to hold off attempting
-this conversion.
+to check around on-line for grub2's full potential.  
+
+NOTE: If you do not understand how to boot a liveCD to re-install lilo, 
+you might want to hold off attempting this conversion.
 
 
 Conversion from lilo to grub2
@@ -32,8 +32,8 @@ can be tweaked for completely automated deployment):
 # grub-mkconfig -o /boot/grub/grub.cfg
 
 
-Or, you can simply create your own from examples.  Below is a simple config. 
-that I use to successfully boot my system.
+Or, you can simply create your own;  Below is a simple config file 
+that I use to successfully boot my slackware 13 system.
 
 -----------------------------------------------------------
 
@@ -52,9 +52,9 @@ menuentry "Slackware 2.6.32" {
 	set root=(hd0,2)
 	linux	/boot/kernel-2.6.32 root=/dev/sda2 ro resume=/dev/sda1  
 }
-menuentry "Slackware 2.6.29.6" {
+menuentry "Slackware 2.6.29.6 rescue" {
 	set root=(hd0,2)
-	linux	/boot/vmlinuz-huge-2.6.29.6 root=/dev/sda2 ro 
+	linux	/boot/vmlinuz-huge-2.6.29.6 root=/dev/sda2 ro
 }
 
 
