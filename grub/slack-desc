@@ -6,14 +6,13 @@
 # customary to leave one space after the ':'.
 
     |-----handy-ruler------------------------------------------------------|
-grub: grub (GNU GRUB Legacy bootloader)
+grub: grub (GNU GRUB bootloader)
 grub:
-grub: This is the legacy (0.9x) version of GNU GRUB, the GRand Unified
-grub: Bootloader.  GRUB is an alternative to other familiar bootloaders
-grub: such as LILO.  Unlike LILO, it loads a kernel through direct file-
-grub: system support rather than a block list so it does not need to be
-grub: updated if a new kernel is installed.
+grub: This is the next-generation GRUB bootloader.  Grub2 has been
+grub: re-written from scratch to clean up everything from modularity
+grub: and portability.  It features support for scripting, themes, 
+grub: real memory-management, rescue mode, and various other improvements
+grub: over grub-legacy.
 grub:
-grub: Also included is Kent Robotti's 'grubconfig' tool (similar to the
-grub: Slackware 'liloconfig' setup tool).
+grub: Visit the homepage:  http://www.gnu.org/software/grub/grub-2.en.html
 grub:
