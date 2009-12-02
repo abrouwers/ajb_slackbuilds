@@ -21,7 +21,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=wicd
-VERSION=${VERSION:-1.6.2.2}
+VERSION=${VERSION:-1.7.0a1}
 ARCH=${ARCH:-x86_64}	# This should be the same as the python package
 BUILD=${BUILD:-1}
 
