@@ -46,6 +46,9 @@ sed -i 's#/sbin/ldconfig#/bin/true#' wscript
 # Don't be fooled by --with-libdir (fixed upstream, too)
 patch -Np1 -i $CWD/0.6_fix_libdir.diff
 
+# Fix compile for ruby 1.9
+patch -Np1 -i $CWD/xmms2-ruby-1.9.patch
+
 export CCFLAGS="$SLKCFLAGS"
 export CXXFLAGS="$SLKCFLAGS"
 
