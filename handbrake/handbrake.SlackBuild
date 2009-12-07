@@ -48,9 +48,9 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP || exit 1
 
 # Released Versions of handbrake (tarballs)
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
-cd $PRGNAM-$VERSION
+rm -rf HandBrake-$VERSION
+tar xvf $CWD/HandBrake-$VERSION.tar.bz2
+cd HandBrake-$VERSION
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 
