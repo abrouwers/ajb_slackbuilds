@@ -78,7 +78,7 @@ chmod -R u+w,go+r-w,a-s .
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 
-./configure --prefix=/usr --force
+./configure --prefix=/usr --force --disable-gtk
 
 make -C build
 make -C build DESTDIR=$PKG install
@@ -98,4 +98,5 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n ${OUTPUT}/${PRGNAM}-r${VERSION}-${ARCH}-${BUILD}${TAG}.tgz
+#/sbin/makepkg -l y -c n ${OUTPUT}/${PRGNAM}-r${VERSION}-${ARCH}-${BUILD}${TAG}.tgz
+/sbin/makepkg -l y -c n ${OUTPUT}/${PRGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.tgz
