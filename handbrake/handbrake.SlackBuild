@@ -23,6 +23,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=handbrake
+VERSION=0.9.4
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
 TAG=${TAG=_ajb}
@@ -46,24 +47,32 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP || exit 1
 
-# We're going to checkout SVN, or update if an SVN dir exists in $TMP
-SVN_URL=svn://svn.handbrake.fr/HandBrake/trunk
+# Released Versions of handbrake (tarballs)
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+cd $PRGNAM-$VERSION
+chown -R root:root .
+chmod -R u+w,go+r-w,a-s .
 
-if [ -d $PRGNAM/.svn ]; then
-  ( cd $PRGNAM && svn up; rm -rf build )
-else
-  svn co $SVN_URL $PRGNAM --config-dir ./
-fi
+
+# We're going to checkout SVN, or update if an SVN dir exists in $TMP
+# SVN_URL=svn://svn.handbrake.fr/HandBrake/trunk
+
+# if [ -d $PRGNAM/.svn ]; then
+#   ( cd $PRGNAM && svn up; rm -rf build )
+# else
+#   svn co $SVN_URL $PRGNAM --config-dir ./
+# fi
 
 # Warm/fuzzy
-echo " "
-echo "Checkout complete (or failed miserably) - starting build..."
-sleep 3
+# echo " "
+# echo "Checkout complete (or failed miserably) - starting build..."
+# sleep 3
 
-cd $TMP/$PRGNAM
+# cd $TMP/$PRGNAM
 
 # Grab version number
-VERSION=$( svn info | egrep '^Revision' | awk '{ print $2 }' )
+# VERSION=$( svn info | egrep '^Revision' | awk '{ print $2 }' )
 
 # Source should here; start the build
 CFLAGS="$SLKCFLAGS" \
@@ -71,9 +80,8 @@ CXXFLAGS="$SLKCFLAGS" \
 
 ./configure --prefix=/usr --force
 
-cd $TMP/handbrake/build
-make
-make DESTDIR=$PKG install
+make -C build
+make -C build DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
