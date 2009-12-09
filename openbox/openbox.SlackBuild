@@ -27,27 +27,15 @@
 # by Phillip Warner <pc_warner@yahoo.com>
 
 PRGNAM=openbox
-VERSION=${VERSION:-3.4.7.2}
+VERSION=${VERSION:-3.4.8}
 ARCH=${ARCH:-i486}
-BUILD=${BUILD:-5}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-
-# Set these to "YES" if you want your package to include a xinitrc file
-# for running Openbox in KDE or GNOME, respectively.
-# Otherwise, you can add the xinitrc files manually to /etc/X11/xinit and
-# the openbox-kde-session and openbox-gnome-session files to /usr/bin.
-# The files can be found under /usr/doc/openbox
-# Don't forget to make them executable if you copy them from /usr/doc!
-#
-# This can be specified on the command line when calling the build script:
-#   KXINIT=YES ./openbox.SlackBuild
-KXINIT=${KXINIT:-NO}
-GXINIT=${GXINIT:-NO}
 
 DOCS="ABOUT-NLS AUTHORS CHANGELOG COMPLIANCE COPYING README"
 
@@ -109,35 +97,6 @@ install -D -m 0755 $CWD/xinitrc.openbox $PKG/etc/X11/xinit/xinitrc.openbox
 
 # Add xinitrc.openbox-session so that openbox-session will show up as an option in xwmconfig
 install -D -m 0755 $CWD/xinitrc.openbox-session $PKG/etc/X11/xinit/xinitrc.openbox-session
-
-# Optionally install xinitrc scripts for running Openbox in KDE or GNOME
-# Move the scripts from /usr/bin if the xinitrc scripts are not installed.
-if [ "$KXINIT" == "YES" ]; then
-	install -D -m 0755 $CWD/xinitrc.kde-openbox $PKG/etc/X11/xinit/xinitrc.kde-openbox
-else
-	cat $PKG/usr/bin/openbox-kde-session > $PKG/usr/share/doc/$PRGNAM/openbox-kde-session
-	rm -vf $PKG/usr/bin/openbox-kde-session
-fi
-if [ "$GXINIT" == "YES" ]; then
-	install -D -m 0755 $CWD/xinitrc.gnome-openbox $PKG/etc/X11/xinit/xinitrc.gnome-openbox
-else
-	cat $PKG/usr/bin/openbox-gnome-session > $PKG/usr/share/doc/$PRGNAM/openbox-gnome-session
-	rm -vf $PKG/usr/bin/openbox-gnome-session
-fi
-
-# Change name of openbox.desktop KDM session file so it corresponds to openbox-session
-( cd $PKG/usr/share/xsessions
-  mv openbox.desktop openbox-session.desktop
-  sed -i "s/Name=Openbox/Name=Openbox-Session/" openbox-session.desktop
-)
-
-# Create symlinks to KDM session desktop files so KDM will use them
-mkdir -p $PKG/usr/share/apps/kdm/sessions
-( cd $PKG/usr/share/apps/kdm/sessions
-  for i in $PKG/usr/share/xsessions/openbox*.desktop ; do
-  	ln -s /usr/share/xsessions/$(basename $i) $(basename $i) ;
-  done
-)
 
 mkdir -p $PKG/usr/doc
 mv $PKG/usr/share/doc/$PRGNAM $PKG/usr/doc/$PRGNAM-$VERSION
