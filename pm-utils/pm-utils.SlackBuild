@@ -24,7 +24,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=pm-utils
-VERSION=1.3.0-rc1
+VERSION=1.3.0-rc3
 VERSION_QUIRK=20091205
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
@@ -105,4 +105,4 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/$PRGNAM-1.3.0_rc1-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $TMP/$PRGNAM-1.3.0_rc3-$ARCH-$BUILD.txz
