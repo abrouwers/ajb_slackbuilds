@@ -55,9 +55,9 @@ cd $TMP
 # GIT_URL=git://anongit.freedesktop.org/git/mesa/mesa
 
 # if [ -d ${PKGNAM}/.git ]; then
-#   ( cd ${PKGNAM} && git pull )  # Should be on the 7.6 branch
+#   ( cd ${PKGNAM} && git pull )  # Should be on the 7.7 branch
 # else
-#   git clone -b mesa_7_6_branch $GIT_URL $PKGNAM
+#   git clone -b mesa_7_7_branch $GIT_URL $PKGNAM
 # fi
 
 # Confirm checkout
