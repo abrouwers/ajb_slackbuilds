@@ -2,7 +2,7 @@
 
 # Slackware build script for Quod Libet
 
-# Copyright 2.18  Frank Caraballo <fecaraballo{at}gmail{dot}com>
+# Copyright 2.1.988  Frank Caraballo <fecaraballo{at}gmail{dot}com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=quodlibet
-VERSION=${VERSION:-2.1}
+VERSION=${VERSION:-2.1.98}
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
