@@ -102,9 +102,6 @@ else
   DO_PATENTED=""
 fi
 
-# Build fix
-patch -p0 < $CWD/libav_fix.diff || exit 1
-
 # MPlayer has abandoned the gui, so we'll disable it too; consider using 
 # gnome-mplayer (GTK) or smplayer (QT4}
 ./configure --prefix=/usr \
