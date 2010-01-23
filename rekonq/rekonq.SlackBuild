@@ -50,8 +50,7 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 
-
-# Source should here; start the build
+# Build
 mkdir build
 cd build
 cmake \
