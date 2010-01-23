@@ -24,7 +24,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=pm-utils
-VERSION=1.3.0-rc3
+VERSION=1.3.0_rc3
 VERSION_QUIRK=20091205
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
@@ -47,9 +47,9 @@ fi
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.?z* || exit 1
-cd $PRGNAM-$VERSION || exit 1
+rm -rf $PRGNAM-${VERSION/_/-}
+tar xvf $CWD/$PRGNAM-${VERSION/_/-}.tar.?z* || exit 1
+cd $PRGNAM-${VERSION/_/-} || exit 1
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -62,7 +62,7 @@ CFLAGS="$SLKCFLAGS" \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --docdir=/usr/doc/$PRGNAM-${VERSION/_/-} \
   --mandir=/usr/man \
   --build=$ARCH-slackware-linux
 
@@ -95,14 +95,14 @@ if [ -d $PKG/usr/man ]; then
   )
 fi
 
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+mkdir -p $PKG/usr/doc/$PRGNAM-${VERSION/_/-}
 cp -a \
   AUTHORS COPYING INSTALL NEWS README* TODO \
     $PKG/usr/doc/$PRGNAM-$VERSION
-cat $CWD/README.SLACKWARE > $PKG/usr/doc/$PRGNAM-$VERSION/README.SLACKWARE
+cat $CWD/README.SLACKWARE > $PKG/usr/doc/$PRGNAM-${VERSION/_/-}/README.SLACKWARE
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/$PRGNAM-1.3.0_rc3-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $TMP/$PRGNAM-$VERSION-$ARCH-$BUILD.txz
