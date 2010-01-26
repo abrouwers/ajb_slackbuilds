@@ -21,8 +21,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PKGNAM=mesa
-# VERSION=${VERSION:-7.6.1}
-VERSION=7.7_$(date +"%Y%m%d")
+VERSION=${VERSION:-7.6.1}
+# VERSION=$(date +"%Y%m%d")
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
 TAG=${TAG=_ajb}
@@ -52,29 +52,30 @@ mkdir -p $TMP $PKG
 cd $TMP
 
 # For live build:
-GIT_URL=git://anongit.freedesktop.org/git/mesa/mesa
+# GIT_URL=git://anongit.freedesktop.org/git/mesa/mesa
 
-if [ -d ${PKGNAM}/.git ]; then
-  ( cd ${PKGNAM} && git pull )  # Should be on the 7.7 branch
-else
-  git clone -b mesa_7_7_branch $GIT_URL $PKGNAM
-fi
+# if [ -d ${PKGNAM}/.git ]; then
+#   ( cd ${PKGNAM} && git pull )  # Should be on the 7.7 branch
+# else
+#   git clone -b mesa_7_7_branch $GIT_URL $PKGNAM
+# fi
 
 # Confirm checkout
-echo " "
-echo "Checkout complete (or failed miserably) - starting build..."
-sleep 3
-cd $TMP/$PKGNAM
+# echo " "
+# echo "Checkout complete (or failed miserably) - starting build..."
+# sleep 3
+
+# cd $TMP/$PKGNAM
 
 # Create the configure script
-sh autogen.sh
+# sh autogen.sh
 
 # For the release version:
-#rm -rf Mesa-${VERSION}
-#tar xvf $CWD/MesaLib-$VERSION.tar.bz2 || exit 1
-#tar xvf $CWD/MesaGLUT-$VERSION.tar.bz2 || exit 1
-#tar xvf $CWD/MesaDemos-$VERSION.tar.bz2 || exit 1
-#cd Mesa-$VERSION
+rm -rf Mesa-${VERSION}
+tar xvf $CWD/MesaLib-$VERSION.tar.bz2 || exit 1
+tar xvf $CWD/MesaGLUT-$VERSION.tar.bz2 || exit 1
+tar xvf $CWD/MesaDemos-$VERSION.tar.bz2 || exit 1
+cd Mesa-$VERSION
 
 # Make sure ownerships and permissions are sane:
 chown -R root:root .
