@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for handbrake-gtk
+# Slackware build script for handbrake
 
-# Copyright 2009 Andrew Brouwers <abrouwers@gmail.com>
+# Copyright 2009, 2010 Andrew Brouwers <abrouwers@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=handbrake
-VERSION=0.9.4
+# VERSION=0.9.4
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
 TAG=${TAG=_ajb}
@@ -47,38 +47,40 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP || exit 1
 
-# Released Versions of handbrake (tarballs)
-rm -rf HandBrake-$VERSION
-tar xvf $CWD/HandBrake-$VERSION.tar.bz2
-cd HandBrake-$VERSION
-chown -R root:root .
-chmod -R u+w,go+r-w,a-s .
-
+# Released Versions of handbrake
+# rm -rf HandBrake-$VERSION
+# tar xvf $CWD/HandBrake-$VERSION.tar.bz2
+# cd HandBrake-$VERSION
+# chown -R root:root .
+# chmod -R u+w,go+r-w,a-s .
 
 # We're going to checkout SVN, or update if an SVN dir exists in $TMP
-# SVN_URL=svn://svn.handbrake.fr/HandBrake/trunk
+SVN_URL=svn://svn.handbrake.fr/HandBrake/trunk
 
-# if [ -d $PRGNAM/.svn ]; then
-#   ( cd $PRGNAM && svn up; rm -rf build )
-# else
-#   svn co $SVN_URL $PRGNAM --config-dir ./
-# fi
+if [ -d $PRGNAM/.svn ]; then
+  ( cd $PRGNAM && svn up; rm -rf build )
+else
+  svn co $SVN_URL $PRGNAM --config-dir ./
+fi
 
 # Warm/fuzzy
-# echo " "
-# echo "Checkout complete (or failed miserably) - starting build..."
-# sleep 3
+echo " "
+echo "Checkout complete (or failed miserably) - starting build..."
+sleep 3
 
-# cd $TMP/$PRGNAM
+cd $TMP/$PRGNAM
 
 # Grab version number
-# VERSION=$( svn info | egrep '^Revision' | awk '{ print $2 }' )
+VERSION=r$( svn info | egrep '^Revision' | awk '{ print $2 }' )
 
 # Source should here; start the build
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 
-./configure --prefix=/usr --force --disable-gtk
+./configure \
+  --prefix=/usr \
+  --force \
+  --disable-gtk
 
 make -C build
 make -C build DESTDIR=$PKG install
@@ -98,5 +100,4 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-#/sbin/makepkg -l y -c n ${OUTPUT}/${PRGNAM}-r${VERSION}-${ARCH}-${BUILD}${TAG}.tgz
 /sbin/makepkg -l y -c n ${OUTPUT}/${PRGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.tgz
