@@ -23,7 +23,7 @@
 # Based on Pat's slackbuild from 13.0
 
 PKGNAM=grub
-VERSION=1.97.1
+VERSION=1.97.2
 ARCH=${ARCH:-i486}
 BUILD=1
 
