@@ -21,7 +21,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PKGNAM=mesa
-VERSION=${VERSION:-7.6.1}
+VERSION=${VERSION:-7.7}
 # VERSION=$(date +"%Y%m%d")
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
@@ -29,7 +29,7 @@ TAG=${TAG=_ajb}
 
 # Be sure this list is up-to-date:
 # DRI_DRIVERS="i810,i915,i965,mach64,mga,r128,r200,r300,radeon,s3v,savage,sis,tdfx,trident,unichrome,ffb,swrast"
-DRI_DRIVERS="i965,swrast"
+DRI_DRIVERS="i965,swrast"  # <-- UPDATE IF YOU DON'T USE INTEL!!
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -94,6 +94,8 @@ CFLAGS="$SLKCFLAGS" \
   --docdir=/usr/doc/mesa-$VERSION \
   --with-dri-driverdir=/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri \
   --with-dri-drivers="$DRI_DRIVERS" \
+  --with-state-trackers=glx,dri,egl \
+  --with-driver=dri \
   --build=$ARCH-slackware-linux
 
 # Nobody else is enabling this.  Seems like it's asking for trouble.
