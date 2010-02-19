@@ -1,3 +1,6 @@
 MediaTomb UPnP service.
 
-NOTE: does not build yet.
+TODO:
+- init-script (?)
+- proper DIRs for runtime stuff (/var)
+- new user/group (?)

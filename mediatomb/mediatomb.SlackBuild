@@ -58,7 +58,7 @@ cd $TMP || exit 1
 SVN_URL="https://svn.mediatomb.cc/svnroot/mediatomb/trunk/mediatomb"
 
 if [ -d $PRGNAM/.svn ]; then
-  ( cd $PRGNAM && svn up; rm -rf build )
+  ( cd $PRGNAM && svn up )
 else
   svn co $SVN_URL $PRGNAM --config-dir ./
 fi
@@ -80,12 +80,14 @@ CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
+  --mandir=/usr/man \
   --enable-curl \
-  --enable-sqlite3 \
   --enable-taglib \
   --enable-protocolinfo-extension
-# --enable-ffmpeg
-# --enable-mysql (instead of sqlite)
+
+# --enable-mysql (not sure yet)
+# --enable-ffmpeg (transcoding support)
+# --enable-sqlite3 (our sqlite is too old, perhaps - todo)
 
 make
 make DESTDIR=$PKG install
