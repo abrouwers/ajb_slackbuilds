@@ -73,12 +73,11 @@ cd $TMP/$PRGNAM
 # Grab version number
 VERSION=r$( svn info | egrep '^Revision' | awk '{ print $2 }' )
 
-# Source should here; create configure script + build
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-
+# generate configure
 autoreconf -i
 
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --enable-curl \
