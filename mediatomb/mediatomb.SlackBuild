@@ -92,8 +92,15 @@ CXXFLAGS="$SLKCFLAGS" \
 make
 make DESTDIR=$PKG install
 
+# strip
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+
+# Compress manpages
+( cd $PKG/usr/man || exit 1
+  find . -type f -exec gzip -9 {} \;
+  for i in $(find . -type l) ; do ln -s $(readlink $i).gz $i.gz ; rm $i ; done
+)
 
 # Add docs
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
