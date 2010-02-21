@@ -25,7 +25,7 @@
 PRGNAM=mediatomb
 # VERSION=0.11.0  # Quite old...SVN recommended
 ARCH=${ARCH:-x86_64}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG=_ajb}
 
 CWD=$(pwd)
@@ -76,6 +76,8 @@ VERSION=r$( svn info | egrep '^Revision' | awk '{ print $2 }' )
 # generate configure
 autoreconf -i
 
+# We really have sqlite, I promise
+LDFLAGS="$LDFLAGS -ldl" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -83,11 +85,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man \
   --enable-curl \
   --enable-taglib \
+  --enable-sqlite3 \
   --enable-protocolinfo-extension
 
-# --enable-mysql (not sure yet)
+# --enable-mysql (alternative to sqlite3)
 # --enable-ffmpeg (transcoding support)
-# --enable-sqlite3 (our sqlite is too old, perhaps - todo)
 
 make
 make DESTDIR=$PKG install
