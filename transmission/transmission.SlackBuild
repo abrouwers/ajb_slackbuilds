@@ -3,7 +3,7 @@
 # Written by Iskar Enev <iskar.enev[@]gmail.com>
 
 PRGNAM=transmission
-VERSION=1.82
+VERSION=1.91
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
@@ -61,14 +61,6 @@ CXXFLAGS="$SLKCFLAGS" \
 make
 make install DESTDIR=$PKG
 
-# build the Qt client (qtr)
-( cd $TMP/$PRGNAM-$VERSION/qt
-  qmake "QMAKE_CXXFLAGS+=$SLKCFLAGS" "QMAKE_CFLAGS+=$SLKCFLAGS" qtr.pro
-  sed -i -e 's% -g % %g' Makefile
-  make
-  INSTALL_ROOT=$PKG/usr make install
-)
-
 ( cd $PKG
   find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | \
     xargs strip --strip-unneeded 2> /dev/null || true
@@ -91,4 +83,3 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
-
