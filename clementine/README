@@ -1,0 +1,6 @@
+Clementine Sound Player is a modern, qt4-based "clone" of amarok 1.4.
+It features searching, internet radio (via. last.fm), and tag-editing
+for mp3 and ogg files.
+
+NOTE: this builds OOB on -current, but might require a couple extras
+on 13.0 (liblastfm, libnotify)
