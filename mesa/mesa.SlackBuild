@@ -22,7 +22,7 @@
 
 PKGNAM=mesa
 # VERSION=${VERSION:-7.7}
-# VERSION=7.8_pre$(date +"%Y%m%d")
+VERSION=7.8_pre$(date +"%Y%m%d")
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
 TAG=${TAG=_ajb}
