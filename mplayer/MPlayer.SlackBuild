@@ -110,9 +110,6 @@ fi
             --disable-gui \
             --disable-liblzo \
             --disable-arts \
-            --codecsdir=${CODECSDIR} \
-            --win32codecsdir=${CODECSDIR} \
-            --realcodecsdir=${CODECSDIR} \
             --language="${LANGUAGES}" \
             ${EXTRACONFIGUREOPTIONS} \
             ${DO_PATENTED}
