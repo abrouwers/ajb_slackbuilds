@@ -101,7 +101,7 @@ CFLAGS="$SLKCFLAGS" \
 # Nobody else is enabling this.  Seems like it's asking for trouble.
 #  --enable-xcb
 
-make $NUMJOBS || make || exit 1
+make || exit 1
 make install DESTDIR=$PKG || exit 1
 
 # Install gears and glinfo:
