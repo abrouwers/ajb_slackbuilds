@@ -39,9 +39,9 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 
-# Extract rpm binary; move to $PKG
-rpm2cpio < $CWD/huludesktop.${ARCH}.rpm | cpio -imdv
-mv usr etc $PKG
+# Use bsdtar to extract; if you're NOT on -current (or 13.1+), you
+# can probably use rpm2cpio instead.
+bsdtar -p -o -C $PKG -xf $CWD/huludesktop.$ARCH.rpm
 cd $PKG
 
 # fix documentation
