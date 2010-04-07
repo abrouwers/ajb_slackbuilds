@@ -21,8 +21,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PKGNAM=mesa
-VERSION=${VERSION:-7.8}
-# VERSION=7.8_pre$(date +"%Y%m%d")
+VERSION=${VERSION:-7.8.1}
+# VERSION=7.8.1_pre$(date +"%Y%m%d")
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
 TAG=${TAG=_ajb}
@@ -57,7 +57,7 @@ cd $TMP
 # if [ -d ${PKGNAM}/.git ]; then
 #   ( cd ${PKGNAM} && git pull )  # Should be on the 7.7 branch
 # else
-#   git clone -b 7.8 $GIT_URL $PKGNAM
+#   git clone -b 7.8.1 $GIT_URL $PKGNAM
 # fi
 
 # Confirm checkout
