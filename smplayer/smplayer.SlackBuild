@@ -22,15 +22,12 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=smplayer
-VERSION=${VERSION:-0.6.8}
-ARCH=${ARCH:-i486}
-BUILD=${BUILD:-2}
-TAG=${TAG:-_SBo}
+# Updated (and convert to live): Andrew Brouwers, abrouwers at gmail
 
-# Optional theme versions:
-FREEVER=0.1.19
-NONFVER=0.1.1
+PRGNAM=smplayer
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_ajb}
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -42,9 +39,27 @@ set -eu
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
-cd $PRGNAM-$VERSION
+
+# We're going to checkout SVN, or update if an SVN dir exists in $TMP
+SVN_URL="https://smplayer.svn.sourceforge.net/svnroot/smplayer/smplayer/trunk"
+
+if [ -d $PRGNAM/.svn ]; then
+  ( cd $PRGNAM && svn up )
+else
+  svn co $SVN_URL $PRGNAM --config-dir ./
+fi
+
+# Warm/fuzzy
+echo " "
+echo "Checkout complete (or failed miserably) - starting build..."
+sleep 3
+
+cd $TMP/$PRGNAM
+
+# Get version number
+VERSION=svn_r$( svn info | egrep '^Revision' | awk '{ print $2 }' )
+
+# Fix perms
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -56,7 +71,18 @@ find . \
 sed -i "s%share/doc/packages/smplayer%doc/$PRGNAM-$VERSION%" Makefile
 sed -i "s%^CONF_PREFIX%#CONF_PREFIX%" Makefile
 
+# Ugly debug messages
+sed -i 's:#\(DEFINES += NO_DEBUG_ON_CONSOLE\):\1:' \
+  src/smplayer.pro
+
+# Lets patch man-page location
+patch -Np0 -i $CWD/smplayer-0.6.9_manpage.patch
+
 make PREFIX=/usr
+
+# Translated docs seems redundant
+rm -rf docs/{cs,de,es,hu,it,ja,nl,ro,ru}
+
 make PREFIX=/usr DESTDIR=$PKG install
 
 strip --strip-unneeded $PKG/usr/bin/*
@@ -66,34 +92,11 @@ mkdir -p $PKG/etc/smplayer
 mv $PKG/usr/share/smplayer/input.conf $PKG/etc/smplayer/input.conf.new
 ln -s /etc/smplayer/input.conf $PKG/usr/share/smplayer/input.conf
 
-mv $PKG/usr/share/man $PKG/usr
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
-
-# Add extra themes if they exist.
-if [ -r $CWD/smplayer-themes-$FREEVER.tar.bz2 ] ; then
-  cd $TMP
-  rm -rf smplayer-themes-$FREEVER
-  tar xvf $CWD/smplayer-themes-$FREEVER.tar.bz2
-  cd smplayer-themes-$FREEVER
-  make PREFIX=/usr DESTDIR=$PKG install
-fi
-
-if [ -r $CWD/smplayer-themes-nonfree-$NONFVER.tar.bz2 ] ; then
-  cd $TMP
-  rm -rf smplayer-themes-nonfree-$NONFVER
-  tar xvf $CWD/smplayer-themes-nonfree-$NONFVER.tar.bz2
-  cd smplayer-themes-nonfree-$NONFVER
-  make PREFIX=/usr DESTDIR=$PKG install
-fi
-
-# Fix theme permissions.
-if [ -d $PKG/usr/share/smplayer/themes/ ] ; then
-  chown -R root:root $PKG/usr/share/smplayer/themes/
-fi
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

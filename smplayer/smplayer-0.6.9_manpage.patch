@@ -1,0 +1,15 @@
+--- Makefile.orig	2010-05-08 10:19:55.280512931 -0400
++++ Makefile	2010-05-08 10:22:03.213574393 -0400
+@@ -75,9 +75,9 @@
+ 	-install -d $(DESTDIR)$(KDE_APPLNK)
+ 	install -m 644 smplayer.desktop $(DESTDIR)$(KDE_APPLNK)
+ 	install -m 644 smplayer_enqueue.desktop $(DESTDIR)$(KDE_APPLNK)
+-	-install -d $(DESTDIR)$(PREFIX)/share/man/man1/
+-	install -m 644 man/smplayer.1 $(DESTDIR)$(PREFIX)/share/man/man1/
+-	gzip -9 -f $(DESTDIR)$(PREFIX)/share/man/man1/smplayer.1
++	-install -d $(DESTDIR)$(PREFIX)/man/man1/
++	install -m 644 man/smplayer.1 $(DESTDIR)$(PREFIX)/man/man1/
++	gzip -9 -f $(DESTDIR)$(PREFIX)/man/man1/smplayer.1
+ 
+ uninstall:
+ 	-rm -f $(PREFIX)/bin/smplayer
