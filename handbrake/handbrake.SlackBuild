@@ -80,7 +80,7 @@ CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --force \
-  --disable-gtk
+  --disable-gtk-update-checks
 
 make -C build
 make -C build DESTDIR=$PKG install
