@@ -1,6 +1,0 @@
-MediaTomb UPnP service.
-
-TODO:
-- init-script (?)
-- proper DIRs for runtime stuff (/var)
-- new user/group (?)
