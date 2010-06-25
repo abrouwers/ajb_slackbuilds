@@ -20,7 +20,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=xf86-video-intel
-# VERSION=2.11.0
+VERSION=2.12.0
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
 TAG=${TAG=_ajb}
@@ -46,25 +46,25 @@ mkdir -p $TMP $PKG
 cd $TMP
 
 # For tarballs
-# rm -rf $PRGNAM-$VERSION
-# tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2 || exit 1
-# cd $PRGNAM-$VERSION
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2 || exit 1
+cd $PRGNAM-$VERSION
 
 # For live version:
-GIT_URL=git://anongit.freedesktop.org/xorg/driver/xf86-video-intel.git
+# GIT_URL=git://anongit.freedesktop.org/xorg/driver/xf86-video-intel.git
 
-if [ -d $PRGNAM/.git ]; then
- ( cd $PRGNAM && git pull )
-else
-  git clone $GIT_URL $PRGNAM
-fi
-cd $TMP/$PRGNAM
+# if [ -d $PRGNAM/.git ]; then
+#  ( cd $PRGNAM && git pull )
+# else
+#   git clone $GIT_URL $PRGNAM
+# fi
+# cd $TMP/$PRGNAM
 
 # Grab latest commit
-VERSION=git_$(git rev-parse HEAD | awk '{print substr($1,0,8)}')
+# VERSION=git_$(git rev-parse HEAD | awk '{print substr($1,0,8)}')
 
 # generate configure
-sh autogen.sh
+# sh autogen.sh
 
 # Configure:
 CFLAGS="$SLKCFLAGS" \
