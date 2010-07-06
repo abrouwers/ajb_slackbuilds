@@ -56,7 +56,7 @@ cd $TMP
 GIT_URL=git://gitorious.org/rekonq/mainline.git
 
 if [ -d $PRGNAM/.git ]; then
- ( cd $PRGNAM && git pull; rm -rf build/ )
+ ( cd $PRGNAM && git pull )
 else
   git clone $GIT_URL $PRGNAM
 fi
