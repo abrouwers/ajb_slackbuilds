@@ -52,7 +52,7 @@ SVN_URL="svn://anonsvn.kde.org/home/kde/trunk/extragear/base/kwebkitpart"
 if [ -d $PRGNAM/.svn ]; then
   ( cd $PRGNAM && svn up && rm -rf build/ )
 else
-  svn co $SVN_URL $PRGNAM --config-dir ./
+  svn co $SVN_URL $PRGNAM
 fi
 
 # Warm/fuzzy
