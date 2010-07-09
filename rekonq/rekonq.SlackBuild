@@ -24,7 +24,7 @@
 
 PRGNAM=rekonq
 ARCH=${ARCH:-x86_64}
-# VERSION=0.4.0
+VERSION=0.5.0
 BUILD=${BUILD:-1}
 TAG=${TAG=_ajb}
 
@@ -48,27 +48,27 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 
 # For release versions:
-# rm -rf $PRGNAM-$VERSION
-# tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
-# cd $PRGNAM-$VERSION
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+cd $PRGNAM-$VERSION
 
 # For live version:
-GIT_URL=git://gitorious.org/rekonq/mainline.git
+#GIT_URL=git://gitorious.org/rekonq/mainline.git
 
-if [ -d $PRGNAM/.git ]; then
- ( cd $PRGNAM && git pull )
-else
-  git clone $GIT_URL $PRGNAM
-fi
+#if [ -d $PRGNAM/.git ]; then
+# ( cd $PRGNAM && git pull )
+#else
+#  git clone $GIT_URL $PRGNAM
+#fi
 
 # Warm/fuzzy
-echo " "    
-echo "Checkout complete (or failed miserably) - starting build..."
-sleep 3
-cd $TMP/$PRGNAM
+#echo " "    
+#echo "Checkout complete (or failed miserably) - starting build..."
+#sleep 3
+#cd $TMP/$PRGNAM
 
 # Grab latest commit
-VERSION=git_$(git rev-parse HEAD | awk '{print substr($1,0,8)}')
+#VERSION=git_$(git rev-parse HEAD | awk '{print substr($1,0,8)}')
 
 # Build
 mkdir build
