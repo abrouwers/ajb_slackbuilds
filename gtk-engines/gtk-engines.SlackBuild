@@ -68,6 +68,9 @@ make install DESTDIR=$PKG
     xargs strip --strip-unneeded 2> /dev/null
 )
 
+# locales seem worthless for this sort of package
+rm -rf $PKG/usr/share/locale
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
   AUTHORS ChangeLog COPYING INSTALL NEWS README \
