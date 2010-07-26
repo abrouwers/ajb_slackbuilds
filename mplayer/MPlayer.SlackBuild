@@ -110,6 +110,7 @@ fi
             --disable-gui \
             --disable-liblzo \
             --disable-arts \
+	    --yasm='' \
             --language="${LANGUAGES}" \
             ${EXTRACONFIGUREOPTIONS} \
             ${DO_PATENTED}
