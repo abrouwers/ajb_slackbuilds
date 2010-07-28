@@ -23,6 +23,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kwebkitpart
+VERSION=0.9.6
 ARCH=${ARCH:-x86_64}
 BUILD=${BUILD:-1}
 TAG=${TAG=_ajb}
@@ -45,24 +46,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-
-# For live version:
-SVN_URL="svn://anonsvn.kde.org/home/kde/trunk/extragear/base/kwebkitpart"
-
-if [ -d $PRGNAM/.svn ]; then
-  ( cd $PRGNAM && svn up && rm -rf build/ )
-else
-  svn co $SVN_URL $PRGNAM
-fi
-
-# Warm/fuzzy
-echo " "    
-echo "Checkout complete (or failed miserably) - starting build..."
-sleep 3
-cd $TMP/$PRGNAM
-
-# Grab version number
-VERSION=svn_$( svn info | egrep '^Revision' | awk '{ print $2 }' )
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/127960-$PRGNAM-$VERSION.tar.bz2
+cd $PRGNAM-$VERSION
 
 # Build
 mkdir build
