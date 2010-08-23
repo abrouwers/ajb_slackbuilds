@@ -1,0 +1,3 @@
+NOTE: rekonq master now depends on qt47; if you would like to use rekonq
+on a stock slackware install, use the stable release available at
+slackbuilds.org.
