@@ -3,7 +3,7 @@
 # Written by Iskar Enev <iskar.enev[@]gmail.com>
 
 PRGNAM=transmission
-VERSION=2.03
+VERSION=2.10
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
@@ -52,7 +52,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --mandir=/usr/man \
   --disable-static \
-  --verbose \
+  --disable-dependency-tracking \
+  --disable-libcanberra \
+  --disable-gconf2 \
   --build=$ARCH-slackware-linux \
   --host=$ARCH-slackware-linux
 
