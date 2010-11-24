@@ -47,7 +47,7 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 
 # For live version:
-GIT_URL=git://gitorious.org/rekonq/mainline.git
+GIT_URL=git://anongit.kde.org/rekonq
 
 if [ -d $PRGNAM/.git ]; then
  ( cd $PRGNAM && git pull )
