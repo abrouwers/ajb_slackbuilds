@@ -1,0 +1,34 @@
+#!/bin/sh
+# Start/stop/restart connman.
+
+# Start connman:
+connman_start() {
+    echo "Starting connmand:  /usr/sbin/connmand"
+    /usr/sbin/connmand --compat
+}
+
+# Stop connman:
+connman_stop() {
+    killall -q /usr/sbin/connmand
+}
+
+# Restart connman:
+connman_restart() {
+  connman_stop
+  sleep 1
+  connman_start
+}
+
+case "$1" in
+'start')
+  connman_start
+  ;;
+'stop')
+  connman_stop
+  ;;
+'restart')
+  connman_restart
+  ;;
+*)
+  echo "usage $0 start|stop|restart"
+esac
