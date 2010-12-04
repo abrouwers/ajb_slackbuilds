@@ -71,14 +71,14 @@ CXXFLAGS="$SLKCFLAGS" \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --mandir=/usr/man \
+  --localstatedir=/var \
   --enable-datafiles \
   --enable-fake \
   --enable-ethernet \
   --enable-wifi \
-  --enable-openvpn \
   --enable-loopback \
   --enable-google \
-  --enable-opnvpn \
+  --enable-openvpn \
   --enable-polkit \
   --disable-dependency-tracking \
   --disable-bluetooth \
