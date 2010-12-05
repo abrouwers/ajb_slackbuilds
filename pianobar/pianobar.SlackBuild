@@ -2,7 +2,7 @@
 
 # Slackware build script for pianobar
 
-# Copyright 2009 Andrew Brouwers <abrouwers@gmail.com>
+# Copyright 2009, 2010 Andrew Brouwers <abrouwers@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,48 +23,47 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=pianobar
-ARCH=${ARCH:-x86_64}
-VERSION=$(date +"%Y%m%d")
+VERSION=2010.11.06
 BUILD=${BUILD:-1}
 TAG=${TAG=_ajb}
 
+# Automatically determine the architecture we're building on:
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+    # Unless $ARCH is already set, use uname -m for all other archs:
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp}
 PKG=$TMP/package-pianobar
 OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
-  LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
-  LIBDIRSUFFIX="64"
 fi
 
 set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
-cd $TMP || exit 1
+cd $TMP
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+cd $PRGNAM-$VERSION
 
-# We're going to checkout git, or update if a git dir exists in $TMP
-GIT_URL=git://github.com/PromyLOPh/pianobar.git
-
-if [ -d $PRGNAM/.git ]; then
-  ( cd $PRGNAM && git pull origin )
-else
-  git clone $GIT_URL
-fi
-
-# Warm/fuzzy
-echo " "
-echo "Checkout complete (or failed miserably) - starting build..."
-sleep 3
-
-cd $TMP/$PRGNAM
+chown -R root:root .
+chmod -R u+w,go+r-w,a-s .
 
 make
-make PREFIX=/usr LIBDIR=/usr/lib${LIBDIRSUFFIX} MANDIR=/usr/man DESTDIR=$PKG install
+make PREFIX=/usr \
+  MANDIR=/usr/man \
+  DESTDIR=$PKG install
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
@@ -77,10 +76,11 @@ fi
 
 # Add at least the slackbuild
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+install -m 644 COPYING $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n ${OUTPUT}/${PRGNAM}-r${VERSION}-${ARCH}-${BUILD}${TAG}.tgz
+/sbin/makepkg -l y -c n ${OUTPUT}/${PRGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.tgz
