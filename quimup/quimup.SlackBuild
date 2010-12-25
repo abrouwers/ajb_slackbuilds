@@ -24,7 +24,7 @@
 
 PRGNAM=quimup
 ARCH=${ARCH:-x86_64}
-VERSION=1.1.1
+VERSION=1.2.0
 BUILD=${BUILD:-2}
 TAG=${TAG=_ajb}
 
@@ -37,11 +37,9 @@ set -e
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
-  PKG_ARCH="32bit"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
-  PKG_ARCH="64bit"
   LIBDIRSUFFIX="64"
 fi
 
@@ -49,9 +47,9 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/${PRGNAM}_${VERSION}_${PKG_ARCH}.tar.gz
-cd ${PRGNAM}_${VERSION}_${PKG_ARCH}
+rm -rf ${PRGNAM}_${VERSION}
+tar xvf $CWD/${PRGNAM}_${VERSION}_source.tar.gz
+cd ${PRGNAM}_${VERSION}
 
 chown -R root:root .
 find . \
@@ -60,11 +58,23 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-# Install binary
-install -D -m 755 $PRGNAM $PKG/usr/bin/$PRGNAM
+# Investigate this later...
+if [ "${ARCH}" = "x86_64" ]; then
+  sed -i 's:lib/libmpdclient.so:lib64/libmpdclient.so:g' quimup.pro || exit 1
+fi
+
+# Compile
+qmake
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+make
+
+# Install
+install -D -m755 $PRGNAM $PKG/usr/bin/$PRGNAM
 
 # Icons
-for size in 32 48 64 128; do
+for size in 32 48 64; do
   install -D -m 644 Icons/$PRGNAM${size}.png \
    $PKG/usr/share/icons/hicolor/${size}x${size}/apps/$PRGNAM.png
 done
