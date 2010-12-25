@@ -1,0 +1,5 @@
+quimup is a qt4-based MPD client.
+This is a binary re-packaging, since the building from stratch doesn't
+give much benefit (and it's build system sucks).
+
+Quimup requires libmpdclient to function.
