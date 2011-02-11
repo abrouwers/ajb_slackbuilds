@@ -4,7 +4,7 @@
 # Start connman:
 connman_start() {
     echo "Starting connmand:  /usr/sbin/connmand"
-    /usr/sbin/connmand --compat
+    /usr/sbin/connmand
 }
 
 # Stop connman:
