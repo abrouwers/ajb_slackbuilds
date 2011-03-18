@@ -84,7 +84,7 @@ cd mplayer-$VERSION
 # cd $TMP/$PRGNAM
 
 # Grab version number
-# VERSION=$( svn info | egrep '^Revision' | awk '{ print $2 }' )
+# VERSION=r$( svn info | egrep '^Revision' | awk '{ print $2 }' )
 
 [ "$USE_PATENTS" != "YES" ] && rm -rf libdvdcss
 chown -R root:root *
@@ -200,4 +200,4 @@ fi
 
 # Build the package:
 cd $PKG
-/sbin/makepkg -l y -c n ${OUTPUT}/${PRGNAM}-r${VERSION}-${ARCH}-${BUILD}${TAG}.tgz
+/sbin/makepkg -l y -c n ${OUTPUT}/${PRGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.tgz
