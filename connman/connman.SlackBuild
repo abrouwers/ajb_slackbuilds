@@ -65,6 +65,11 @@ cd $PRGNAM-$VERSION
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 
+# Slackware uses netdev by default; this patch is useful for those NOT using polkit, to
+# grand their user access to talking to connman.  If you decide to change the configure
+# call below to use polkit instead, this patch shouldn't be needed.
+patch -Np0 -i $CWD/connman-0.70-dbus-netdev.patch
+
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -79,7 +84,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-loopback \
   --enable-google \
   --enable-openvpn \
-  --enable-polkit \
+  --disable-polkit \
   --disable-dependency-tracking \
   --disable-bluetooth \
   --disable-portal \

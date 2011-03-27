@@ -1,0 +1,14 @@
+--- src/connman-dbus.conf.orig	2011-03-27 17:04:00.189000002 -0400
++++ src/connman-dbus.conf	2011-03-27 17:04:35.040000705 -0400
+@@ -7,6 +7,11 @@
+         <allow send_interface="net.connman.Agent"/>
+         <allow send_interface="net.connman.Counter"/>
+     </policy>
++  <policy group="netdev">
++       <allow send_destination="net.connman"/>
++       <allow send_interface="net.connman.Agent"/>
++       <allow send_interface="net.connman.Counter"/>
++   </policy>
+     <policy at_console="true">
+         <allow send_destination="net.connman"/>
+     </policy>
