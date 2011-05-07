@@ -23,7 +23,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=connman
-VERSION=0.71
+VERSION=0.73
 BUILD=${BUILD:-1}
 TAG=${TAG:-_ajb}
 
@@ -60,13 +60,13 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 
 # Slackware uses netdev by default; this patch is useful for those NOT using polkit, to
-# grand their user access to talking to connman.  If you decide to change the configure
+# grant their user access to talking to connman.  If you decide to change the configure
 # call below to use polkit instead, this patch shouldn't be needed.
 patch -Np0 -i $CWD/connman-0.70-dbus-netdev.patch
 
