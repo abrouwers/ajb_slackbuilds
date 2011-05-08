@@ -24,7 +24,7 @@
 
 PRGNAM=connman
 VERSION=0.73
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_ajb}
 
 if [ -z "$ARCH" ]; then
@@ -92,6 +92,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-meego \
   --disable-openconnect \
   --disable-debug \
+  --with-systemdsystemunitdir=/lib/systemd/system \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux
 
@@ -102,7 +103,7 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 # Add init script
-install -D -m 755 $CWD/connman.rc $PKG/etc/rc.d/rc.connman.new
+# install -D -m 755 $CWD/connman.rc $PKG/etc/rc.d/rc.connman.new
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
