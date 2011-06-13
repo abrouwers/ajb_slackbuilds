@@ -1,3 +1,0 @@
-pianobar depends on:
-* libmad, libao (shipped with slackware)
-* faad2 (available from slackbuilds.org)
