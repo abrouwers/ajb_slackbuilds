@@ -2,7 +2,7 @@
 
 # Slackware build script for connman
 
-# Copyright 2010 Andrew Brouwers <abrouwers@gmail.com>
+# Copyright 2010, 2011 Andrew Brouwers <abrouwers@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=connman
-VERSION=0.74
-BUILD=${BUILD:-2}
+VERSION=0.75
+BUILD=${BUILD:-1}
 TAG=${TAG:-_ajb}
 
 if [ -z "$ARCH" ]; then
@@ -69,6 +69,9 @@ chmod -R u+w,go+r-w,a-s .
 # grant their user access to talking to connman.  If you decide to change the configure
 # call below to use polkit instead, this patch shouldn't be needed.
 patch -Np0 -i $CWD/connman-0.70-dbus-netdev.patch
+
+# Future-proof new iptables
+patch -Np1 -i $CWD/iptables-1.4.11.patch
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
